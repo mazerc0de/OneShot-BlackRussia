@@ -1,5 +1,6 @@
 #include "timer.h"
 #include "gameLibAddr.h"
+#include <chrono>
 
 CTimer::CTimer()
 {
@@ -9,6 +10,10 @@ CTimer::CTimer()
 
 void CTimer::Update()
 {
+#ifdef __aarch64__
+    SetTimeInMilliseconds((int)(std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::system_clock::now().time_since_epoch()).count() & 0x7fffffff));
+#else
     float* timeScale = (float *)(gameLibAddr + 0x464508C);
     if(timeScale)
     {
@@ -20,4 +25,5 @@ void CTimer::Update()
     {
         SetTimeInMilliseconds(*timeInMilliseconds);
     }
+#endif
 }

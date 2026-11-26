@@ -11,6 +11,11 @@
 // = Game
 
 extern void CGame_Process();
+extern void CheatFrameBody();
+#ifdef __aarch64__
+extern void JNILib_step_hook(JNIEnv* env, jclass cls);
+extern void (*old_JNILib_step)(JNIEnv* env, jclass cls);
+#endif
 extern int GetIsLineOfSightClear(int origin, int target, int buildings, int vehicles, int peds, int objects, int dummies, int doSeeThroughCheck, int doCameraIgnoreCheck);
 extern void CSprintCalculator(int*);
 extern void CPedDamageCalculator(int,int,unsigned int,float,int,int);

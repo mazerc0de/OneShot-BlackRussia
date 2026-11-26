@@ -6,10 +6,13 @@
 #include <cstring>
 #include <jni.h>
 #include <unistd.h>
+#include <sys/uio.h>
+#include <sys/syscall.h>
 #include <fstream>
 #include <dlfcn.h>
 #include <stdint.h>
 #include <cmath>
+#include <ctype.h>
 
 // Debug utils
 #include "debug/Logger.h"

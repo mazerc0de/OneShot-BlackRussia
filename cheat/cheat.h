@@ -1,3 +1,20 @@
+
+// CRemotePlayer::m_pPlayerPed offset — arm64 pool dumps show vptr@0, ped@0x10
+#ifdef __aarch64__
+#define PLAYER_PED_OFF 0x10
+#else
+#define PLAYER_PED_OFF 0x4
+#endif
+// CEntity position in m_matrix — arm64 object has vptr@0 so CPlaceable starts at +8
+#ifdef __aarch64__
+#define ENT_POS_X 0x38
+#define ENT_POS_Y 0x3C
+#define ENT_POS_Z 0x40
+#else
+#define ENT_POS_X 0x30
+#define ENT_POS_Y 0x34
+#define ENT_POS_Z 0x38
+#endif
 #ifndef CHEAT_CLIENT_H
 #define CHEAT_CLIENT_H
 
@@ -65,6 +82,11 @@ public:
 	void SetNameTagsDrawDistance(float m_fDistance);
 	float GetNameTagsDrawDistance();
 	
+	// Settings persistence
+	void SaveSettings();
+	void LoadSettings();
+	bool settings_loaded = false;
+	
 	// Game Function's
 	
 	// Player Ped Function's
@@ -76,6 +98,7 @@ public:
 	void SetRotate(uintptr_t matrix, float, float, float);
 	void SetRotateZOnly(uintptr_t matrix, float z);
 	Vec3 GetPos(uintptr_t object);
+	uintptr_t GetMatrix(uintptr_t object);
 	void SetPos(uintptr_t object, Vec3 pos);
 	void SetPos(uintptr_t object, float x, float y, float z);
 	
@@ -139,6 +162,9 @@ public:
 			struct {
 				bool autoHeal = false;
 				bool autoArmour = false;
+				float healBelow = 50.f;
+				float armourBelow = 50.f;
+				uint32_t lastUse = 0;
 				// TODO: automatically take gun from family
 
 			} Invulnerability;

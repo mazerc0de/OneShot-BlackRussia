@@ -34,6 +34,9 @@ void (*old_Java_com_blackhub_bronline_game_core_JNILib_multiTouchEvent)(JNIEnv* 
 
 // = Game
 void (*old_CGame_Process)();
+#ifdef __aarch64__
+void (*old_JNILib_step)(JNIEnv* env, jclass cls);
+#endif
 float (*FindGroundZ)(float,float);
 int (*CPlayerPool_GetAt)(int pool, unsigned short id);
 int (*CVehiclePool_GetAt)(int pool, unsigned short id);

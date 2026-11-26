@@ -24,18 +24,18 @@
 			uintptr_t player = CPlayerPool_GetAt(playerpool, i);
 			if(player)
 			{
-				player = *(int *)(player + 4);
+				player = *(uintptr_t *)(player + PLAYER_PED_OFF);
 				if(player)
 				{
 					
 					Vec3 screen_pos;
-					Vec3 pos = { *(float *)(player + 0x34), *(float *)(player + 0x38), *(float *)(player + 0x3C) };
+					Vec3 pos = { *(float *)(player + 0x30), *(float *)(player + 0x34), *(float *)(player + 0x38) };
 	
 					if(WorldToScreen(&pos, &screen_pos))
 					{
 						if(screen_pos.z >= 1.f)
 						{
-							float dist = distance(pos.x, pos.y, pos.z, *(float *)(localped + 0x34), *(float*)(localped + 0x38), *(float *)(localped + 0x3C));
+							float dist = distance(pos.x, pos.y, pos.z, *(float *)(localped + 0x30), *(float*)(localped + 0x34), *(float *)(localped + 0x38));
 							std::string distance_str = to_string(dist);
 							//ImGui::GetBackgroundDrawList()->AddText(ImVec2(screen_pos.x, screen_pos.y), IM_COL32_WHITE, distance_str.c_str());
 							
@@ -73,13 +73,13 @@
 				{
 					
 					Vec3 screen_pos = Vec3(0,0,0);
-					Vec3 pos = { *(float *)(player + 0x34), *(float *)(player + 0x38), *(float *)(player + 0x3C) };
+					Vec3 pos = { *(float *)(player + 0x30), *(float *)(player + 0x34), *(float *)(player + 0x38) };
 	
 					if(WorldToScreen(&pos, &screen_pos))
 					{
 						if(screen_pos.z >= 1.f)
 						{
-							float dist = distance(pos.x, pos.y, pos.z, *(float *)(localped + 0x34), *(float*)(localped + 0x38), *(float *)(localped + 0x3C));
+							float dist = distance(pos.x, pos.y, pos.z, *(float *)(localped + 0x30), *(float*)(localped + 0x34), *(float *)(localped + 0x38));
 							std::string distance_str = to_string(dist);
 							//ImGui::GetBackgroundDrawList()->AddText(ImVec2(screen_pos.x, screen_pos.y), IM_COL32_WHITE, distance_str.c_str());
 							
